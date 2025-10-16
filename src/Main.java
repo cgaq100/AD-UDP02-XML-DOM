@@ -15,6 +15,11 @@ public class Main {
             }
         }
         
+
+        XmlManager.EscribirTXTNoticias(noticias, new File("salida.txt"));
+
+        String categoria = "España";
+        System.out.println("El listado de noticias con categoria "+categoria+" está compuesto por "+XmlManager.contarPorCategoria(noticias, categoria)+" noticias");
         
 
     }

@@ -1,6 +1,8 @@
 import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -100,9 +102,45 @@ public class XmlManager {
 
 
 
-    public static void EscribirTXTNoticias(HashSet<Noticia> noticias){
+    public static void EscribirTXTNoticias(HashSet<Noticia> noticias, File file){
         
+        try(FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);)
+        {
 
+            int secuencial = 0;
+
+            for (Noticia index : noticias) {
+
+                String title = index.getTitle();
+                String creator = index.getCreador();
+                String description = index.getDescripcion();
+                secuencial++;
+
+                bw.write(secuencial+" | "+title+" | "+creator+" | "+description+"\n");
+
+            }
+
+        }
+        catch(IOException e)
+        {
+            System.out.println("Hubo un error en la creacion del fichero: "+e.getMessage());
+        }
+
+    }
+
+
+
+
+    public static int contarPorCategoria(HashSet<Noticia> noticias, String categoria){
+        
+        int conteo = 0;
+        
+        for (Noticia index : noticias) {
+            if(index.getCategoria().contains(categoria)) conteo++;
+        }
+
+        return conteo;
 
     }
 
